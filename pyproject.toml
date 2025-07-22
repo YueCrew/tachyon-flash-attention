@@ -1,0 +1,10 @@
+[build-system]
+requires = [
+    "setuptools>=61.0",
+    "wheel",
+    "torch",
+    "packaging",
+    "psutil",
+    "ninja",
+]
+build-backend = "setuptools.build_meta" 
