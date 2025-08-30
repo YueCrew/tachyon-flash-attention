@@ -1,6 +1,7 @@
 # Copyright (c) 2023, Tri Dao.
 
 import math
+import os
 from functools import partial
 
 import torch
@@ -32,6 +33,7 @@ try:
 except ImportError:
     RotaryEmbedding = None
 
+from tachyon.modules.fast_tree_for_flash_attn import tree_attention_as_flash_attn_drop_in_func_self, tree_attention_as_flash_attn_drop_in_func_cross
 
 # From https://github.com/ofirpress/attention_with_linear_biases/blob/4b92f28a005ead2567abe2359f633e73e08f3833/fairseq/models/transformer.py#L742
 def get_alibi_slopes(nheads):
@@ -103,6 +105,20 @@ class FlashSelfAttention(nn.Module):
         unpadded = cu_seqlens is not None
         if self.alibi_slopes is not None:
             self.alibi_slopes = self.alibi_slopes.to(torch.float32)
+
+        if os.environ.get("USE_TREE_ATTENTION", False):
+            if unpadded:
+                raise NotImplementedError("TreeAttention does not support unpadded inputs")
+            return tree_attention_as_flash_attn_drop_in_func_self(
+                qkv,
+                self.drop.p if self.training else 0.0,
+                softmax_scale=self.softmax_scale,
+                causal=causal,
+                alibi_slopes=self.alibi_slopes,
+                window_size=self.window_size,
+                deterministic=self.deterministic,
+            )
+
         if unpadded:
             assert cu_seqlens.dtype == torch.int32
             assert max_seqlen is not None
@@ -189,6 +205,25 @@ class FlashCrossAttention(nn.Module):
         unpadded = cu_seqlens is not None
         if self.alibi_slopes is not None:
             self.alibi_slopes = self.alibi_slopes.to(torch.float32)
+        if os.environ.get("USE_TREE_ATTENTION", False):
+            if unpadded:
+                raise NotImplementedError("TreeAttention does not support unpadded inputs")
+            batch_size, seqlen_q = q.shape[0], q.shape[1]
+            seqlen_k = kv.shape[1]
+            if causal and seqlen_q != seqlen_k:
+                raise NotImplementedError("TreeAttention does not support causal attention with seqlen_q != seqlen_k")
+            assert kv.shape[0] == batch_size and kv.shape[4] == q.shape[3]
+            return tree_attention_as_flash_attn_drop_in_func_cross(
+                q,
+                kv,
+                self.drop.p if self.training else 0.0,
+                causal=causal,
+                softmax_scale=self.softmax_scale,
+                alibi_slopes=self.alibi_slopes,
+                window_size=self.window_size,
+                deterministic=self.deterministic,
+            )    
+           
         if unpadded:
             assert cu_seqlens.dtype == torch.int32
             assert max_seqlen is not None
