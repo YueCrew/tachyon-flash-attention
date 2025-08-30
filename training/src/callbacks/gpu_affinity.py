@@ -1,6 +1,6 @@
 import torch
 
-from pytorch_lightning import Callback, Trainer, LightningModule
+from lightning import Callback, Trainer, LightningModule
 
 import logging
 

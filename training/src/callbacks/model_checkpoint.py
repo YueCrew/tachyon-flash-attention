@@ -1,8 +1,8 @@
-# Adapted from https://github.com/Lightning-AI/lightning/blob/master/src/pytorch_lightning/callbacks/fault_tolerance.py
+# Adapted from https://github.com/Lightning-AI/lightning/blob/master/src/lightning/callbacks/fault_tolerance.py
 from typing import Any
 from pathlib import Path
 
-import pytorch_lightning as pl
+import lightning.pytorch as pl
 
 
 class ModelCheckpointMine(pl.callbacks.model_checkpoint.ModelCheckpoint):

@@ -2,11 +2,11 @@ import logging
 import warnings
 from typing import List, Sequence
 
-import pytorch_lightning as pl
+import lightning.pytorch as pl
 import rich.syntax
 import rich.tree
 from omegaconf import DictConfig, OmegaConf
-from pytorch_lightning.utilities import rank_zero_only
+from lightning.pytorch.utilities import rank_zero_only
 
 
 # Copied from https://docs.python.org/3/howto/logging-cookbook.html#using-a-context-manager-for-selective-logging

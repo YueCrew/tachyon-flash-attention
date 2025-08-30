@@ -1,12 +1,12 @@
-# Adapted from https://pytorch-lightning.readthedocs.io/en/latest/_modules/pytorch_lightning/callbacks/gpu_stats_monitor.html#GPUStatsMonitor
+# Adapted from https://pytorch-lightning.readthedocs.io/en/latest/_modules/lightning/callbacks/gpu_stats_monitor.html#GPUStatsMonitor
 # We only need the speed monitoring, not the GPU monitoring
 import time
 from typing import Any
 
-from pytorch_lightning import Callback, Trainer
-from pytorch_lightning.utilities import rank_zero_only
-from pytorch_lightning.utilities.parsing import AttributeDict
-from pytorch_lightning.utilities.types import STEP_OUTPUT
+from lightning import Callback, Trainer
+from lightning.pytorch.utilities import rank_zero_only
+from lightning.pytorch.utilities.parsing import AttributeDict
+from lightning.pytorch.utilities.types import STEP_OUTPUT
 
 
 class SpeedMonitor(Callback):

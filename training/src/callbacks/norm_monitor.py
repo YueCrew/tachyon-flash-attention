@@ -1,4 +1,4 @@
-# Inspired by https://github.com/Lightning-AI/lightning/blob/master/src/pytorch_lightning/utilities/grads.py
+# Inspired by https://github.com/Lightning-AI/lightning/blob/master/src/lightning/utilities/grads.py
 # However, they compute grad at every iteration (I think), and the .item() calls incur a lot of overhead
 # (6-7% slow down on GPT-2 small). Instead we only compute for iterations where we need to log, and don't
 # call .item() explicitly.
@@ -6,9 +6,9 @@
 from typing import Any
 from collections import OrderedDict
 
-from pytorch_lightning import Callback, Trainer
-from pytorch_lightning.utilities import rank_zero_only
-from pytorch_lightning.strategies import DeepSpeedStrategy
+from lightning import Callback, Trainer
+from lightning.pytorch.utilities import rank_zero_only
+from lightning.pytorch.strategies import DeepSpeedStrategy
 
 import torch
 import torch.nn as nn

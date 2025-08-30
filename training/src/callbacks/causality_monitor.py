@@ -1,7 +1,7 @@
 
-import pytorch_lightning as pl
-from pytorch_lightning import Callback
-from pytorch_lightning.utilities import rank_zero_only
+import lightning.pytorch as pl
+from lightning import Callback
+from lightning.pytorch.utilities import rank_zero_only
 
 import torch
 from torch.autograd import grad

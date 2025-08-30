@@ -6,9 +6,9 @@ import matplotlib.pyplot as plt
 import seaborn as sn
 import torch
 import wandb
-from pytorch_lightning import Callback, Trainer
-from pytorch_lightning.loggers import LoggerCollection, WandbLogger
-from pytorch_lightning.utilities import rank_zero_only
+from lightning import Callback, Trainer
+from lightning.pytorch.loggers import LoggerCollection, WandbLogger
+from lightning.pytorch.utilities import rank_zero_only
 from sklearn import metrics
 from sklearn.metrics import f1_score, precision_score, recall_score
 

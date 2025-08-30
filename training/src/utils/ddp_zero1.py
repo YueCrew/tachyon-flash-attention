@@ -7,14 +7,14 @@ import torch
 from torch.optim.optimizer import Optimizer
 from torch.distributed.optim import ZeroRedundancyOptimizer
 
-from pytorch_lightning.strategies.ddp import DDPStrategy
-from pytorch_lightning.core.optimizer import LightningOptimizer
-try:  # pytorch_lightning <= 1.7
-    from pytorch_lightning.utilities.types import _PATH
-except ImportError:  # pytorch_lightning >= 1.8
+from lightning.pytorch.strategies.ddp import DDPStrategy
+from lightning.core.optimizer import LightningOptimizer
+try:  # lightning <= 1.7
+    from lightning.pytorch.utilities.types import _PATH
+except ImportError:  # lightning >= 1.8
     try:
         from lightning_lite.utilities.types import _PATH
-    except ImportError:  # pytorch_lightning >= 1.9
+    except ImportError:  # lightning >= 1.9
         from lightning_fabric.utilities.types import _PATH
 
 
