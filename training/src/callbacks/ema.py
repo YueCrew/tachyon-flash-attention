@@ -1,14 +1,14 @@
-# Inspired by https://github.com/PyTorchLightning/pytorch-lightning/blob/master/pytorch_lightning/callbacks/stochastic_weight_avg.py
+# Inspired by https://github.com/PyTorchLightning/pytorch-lightning/blob/master/lightning/callbacks/stochastic_weight_avg.py
 # https://github.com/PyTorchLightning/Lightning-Bolts/blob/master/pl_bolts/callbacks/byol_updates.py
 # https://forums.pytorchlightning.ai/t/adopting-exponential-moving-average-ema-for-pl-pipeline/488/2
 # https://github.com/PyTorchLightning/pytorch-lightning/issues/8100
 
 from typing import Dict, Any
 
-from pytorch_lightning import Callback, Trainer
-from pytorch_lightning.utilities import rank_zero_only
-from pytorch_lightning.utilities.parsing import AttributeDict
-from pytorch_lightning.utilities.types import STEP_OUTPUT
+from lightning import Callback, Trainer
+from lightning.pytorch.utilities import rank_zero_only
+from lightning.pytorch.utilities.parsing import AttributeDict
+from lightning.pytorch.utilities.types import STEP_OUTPUT
 
 from src.utils.ema import ExponentialMovingAverage
 

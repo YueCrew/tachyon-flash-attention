@@ -3,14 +3,14 @@ from pathlib import Path
 
 import hydra
 from omegaconf import OmegaConf, DictConfig
-from pytorch_lightning import (
+from lightning import (
     Callback,
     LightningDataModule,
     LightningModule,
     Trainer,
     seed_everything,
 )
-from pytorch_lightning.loggers import LightningLoggerBase
+from lightning.pytorch.loggers import LightningLoggerBase
 
 from src.utils import utils
 
@@ -96,7 +96,7 @@ def train(config: DictConfig) -> Optional[float]:
         n_devices = len(n_devices)
     if n_devices > 1 and config.trainer.get('strategy', None) is None:
         config.trainer.strategy = dict(
-            _target_='pytorch_lightning.strategies.DDPStrategy',
+            _target_='lightning.pytorch.strategies.DDPStrategy',
             find_unused_parameters=False,
             gradient_as_bucket_view=True,  # https://pytorch-lightning.readthedocs.io/en/stable/advanced/advanced_gpu.html#ddp-optimizations
         )

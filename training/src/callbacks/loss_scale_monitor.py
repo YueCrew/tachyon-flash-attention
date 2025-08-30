@@ -1,9 +1,9 @@
-# Adapted from https://github.com/Lightning-AI/lightning/blob/master/src/pytorch_lightning/callbacks/lr_monitor.py.
+# Adapted from https://github.com/Lightning-AI/lightning/blob/master/src/lightning/callbacks/lr_monitor.py.
 from typing import Any
 
-from pytorch_lightning import Callback, Trainer
-from pytorch_lightning.utilities import rank_zero_only
-from pytorch_lightning.strategies import DeepSpeedStrategy
+from lightning import Callback, Trainer
+from lightning.pytorch.utilities import rank_zero_only
+from lightning.pytorch.strategies import DeepSpeedStrategy
 
 
 class LossScaleMonitor(Callback):

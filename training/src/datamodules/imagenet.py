@@ -8,7 +8,7 @@ from torch.utils.data import Dataset, DataLoader, SequentialSampler
 from torch.utils.data.dataloader import default_collate
 from torch.utils.data.distributed import DistributedSampler
 
-from pytorch_lightning import LightningDataModule
+from lightning import LightningDataModule
 
 from torchvision import transforms
 from torchvision.datasets import ImageFolder

@@ -1,8 +1,8 @@
 from typing import Any
 
-from pytorch_lightning import Callback, Trainer, LightningModule
-from pytorch_lightning.utilities import rank_zero_only
-from pytorch_lightning.utilities.parsing import AttributeDict
+from lightning import Callback, Trainer, LightningModule
+from lightning.pytorch.utilities import rank_zero_only
+from lightning.pytorch.utilities.parsing import AttributeDict
 
 
 class ParamsLog(Callback):

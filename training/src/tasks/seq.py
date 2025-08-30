@@ -3,7 +3,7 @@ import inspect
 
 import torch
 import hydra
-from pytorch_lightning import LightningModule, LightningDataModule
+from lightning import LightningModule, LightningDataModule
 from torchmetrics import MetricCollection
 
 from einops import rearrange

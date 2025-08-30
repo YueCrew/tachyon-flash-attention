@@ -15,7 +15,7 @@ from torch.utils.data.dataloader import DataLoader, Dataset
 from transformers import AutoTokenizer
 from datasets import load_dataset
 
-from pytorch_lightning import LightningDataModule
+from lightning import LightningDataModule
 
 from src.datamodules.datasets.lm_dataset import LMDataset
 from src.datamodules.fault_tolerant_sampler import RandomFaultTolerantSampler

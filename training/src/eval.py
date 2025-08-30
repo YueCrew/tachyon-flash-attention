@@ -5,14 +5,14 @@ import torch
 
 import hydra
 from omegaconf import OmegaConf, DictConfig
-from pytorch_lightning import (
+from lightning import (
     Callback,
     LightningDataModule,
     LightningModule,
     Trainer,
     seed_everything,
 )
-from pytorch_lightning.loggers import LightningLoggerBase
+from lightning.pytorch.loggers import LightningLoggerBase
 
 from src.utils import utils
 
