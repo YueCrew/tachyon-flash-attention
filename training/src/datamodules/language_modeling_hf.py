@@ -21,8 +21,6 @@ from src.datamodules.datasets.lm_dataset import LMDataset
 from src.datamodules.fault_tolerant_sampler import RandomFaultTolerantSampler
 from src.datamodules.fault_tolerant_sampler import FaultTolerantDistributedSampler
 from src.datamodules.datasets.detokenizer import DATASET_TOKENIZATION_REGISTRY
-from src.utils.utils import get_logger
-logger = get_logger()
 
 
 # https://github.com/numpy/numpy/issues/18294
@@ -231,7 +229,6 @@ class LMDataModule(LightningDataModule):
 
     def _save_to_cache(self, concat_ids, tokenizer, cache_dir):
         cache_dir.mkdir(parents=True, exist_ok=True)
-        logger.info(f'Saving to cache at {str(cache_dir)}')
         for k, v in concat_ids.items():
             np.save(cache_dir / f'{k}.npy', v)
         with open(cache_dir / 'tokenizer.pkl', 'wb') as f:
@@ -239,7 +236,6 @@ class LMDataModule(LightningDataModule):
 
     def _load_from_cache(self, cache_dir):
         assert cache_dir.is_dir()
-        logger.info(f'Load from cache at {str(cache_dir)}')
         concat_ids = {split: np.load(cache_dir / f'{split}.npy', mmap_mode='r')
                       for split in ['train', 'validation', 'test']}
         with open(cache_dir / 'tokenizer.pkl', 'rb') as f:
@@ -248,7 +244,7 @@ class LMDataModule(LightningDataModule):
 
     @property
     def _cache_dir_name(self):
-        return f'tokenizer_name-{self.tokenizer_name}-val_ratio-{self.val_ratio}-val_split_seed-{self.val_split_seed}-add_eos-{self.add_eos}-detokenize-{self.detokenize}'
+        return f'dataset_name-{self.dataset_name}-tokenizer_name-{self.tokenizer_name}-val_ratio-{self.val_ratio}-val_split_seed-{self.val_split_seed}-add_eos-{self.add_eos}-detokenize-{self.detokenize}'
 
     def train_dataloader(self, *args: Any, **kwargs: Any) -> DataLoader:
         """ The train dataloader """
